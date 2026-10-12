@@ -309,6 +309,13 @@ textarea.form-control { border-radius: 0.7rem; }
   border-radius: var(--bs-border-radius-lg);
 }
 
+/* A table lives on a card, so its cells must stay transparent. Bootstrap
+   paints each cell with --bs-table-bg (the page colour), which would lay a
+   square block over the card's rounded corners. */
+.table {
+  --bs-table-bg: transparent;
+}
+
 /* The piece of work on the projects page. */
 .work {
   overflow: hidden;
