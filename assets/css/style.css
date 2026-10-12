@@ -51,6 +51,12 @@
   --bs-body-color: #cddbe4;
   --bs-body-color-rgb: 205, 219, 228;
   --bs-heading-color: #eef7fb;
+  /* The markup also carries data-bs-theme="dark" so Bootstrap's own dark
+     tokens are live before the JS runs. Pin emphasis here anyway: tables, nav
+     links, footer links and list-group hover all read it, and a black value
+     would vanish against these surfaces. */
+  --bs-emphasis-color: #eef7fb;
+  --bs-emphasis-color-rgb: 238, 247, 251;
   --bs-secondary-color: #8399a8;
   --bs-secondary-bg: #0d161d;
   --bs-tertiary-bg: #121d26;
@@ -118,6 +124,7 @@
   --bs-body-color-rgb: 27, 43, 52;
   --bs-heading-color: #0b1a22;
   --bs-emphasis-color: #000;
+  --bs-emphasis-color-rgb: 0, 0, 0;
   --bs-secondary-color: #5d7885;
   --bs-secondary-bg: #eef3f6;
   --bs-tertiary-bg: #e6eef2;

@@ -67,9 +67,7 @@ require __DIR__ . '/app/parts/header.php';
     <section class="container pb-5">
         <div class="row g-4 g-lg-5">
             <div class="col-lg-8 reveal">
-                <div style="font-size: 1.06rem;">
-                    <?= prose($work['body']) ?>
-                </div>
+                <?= prose($work['body']) ?>
             </div>
 
             <div class="col-lg-4">

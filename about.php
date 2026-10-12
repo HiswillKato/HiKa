@@ -53,7 +53,7 @@ require __DIR__ . '/app/parts/header.php';
         <!-- ---------- the story ---------- -->
         <div class="col-lg-8">
             <div class="reveal" style="font-size: 1.06rem;">
-                <?= prose($me['about'] ?? '') ?>
+                <?= prose($me['about'] ?? '', headings: false) ?>
             </div>
 
             <?php $interest = pick(skills(), 'interest'); ?>

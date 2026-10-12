@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 <script>
 (function () {
-    try { document.documentElement.setAttribute('data-theme', localStorage.getItem('hika-theme') || 'dark'); } catch (error) {}
+    try {
+        var chosen = localStorage.getItem('hika-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', chosen);
+        document.documentElement.setAttribute('data-bs-theme', chosen);
+    } catch (error) {}
 })();
 </script>
 </head>

@@ -18,7 +18,7 @@ $menu = [
 $unread = total('SELECT COUNT(*) FROM messages WHERE seen = 0');
 ?>
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-bs-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,9 @@ $unread = total('SELECT COUNT(*) FROM messages WHERE seen = 0');
 <script>
 (function () {
     try {
-        document.documentElement.setAttribute('data-theme', localStorage.getItem('hika-theme') || 'dark');
+        var chosen = localStorage.getItem('hika-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', chosen);
+        document.documentElement.setAttribute('data-bs-theme', chosen);
     } catch (error) {}
 })();
 </script>

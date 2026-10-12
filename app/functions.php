@@ -113,32 +113,58 @@ function icon(string $classes): string
     return '<i class="' . e($classes) . '" aria-hidden="true"></i>';
 }
 
-/* Turn a block of plain text into safe HTML: blank lines make paragraphs,
-   a line starting `## ` makes a heading, and a run of `- ` lines makes a
-   list. Everything is escaped first, so no formatting can smuggle in a tag. */
-function prose(string $text): string
+/* Turn a block of plain text into safe HTML. Lines are read one at a time, so
+   a heading, a list and a paragraph can sit side by side without needing a
+   blank line between them: a `## ` line is a heading, a run of `- ` lines is a
+   list, and anything else gathers into a paragraph. Pass $headings as false to
+   keep a `## ` line as an ordinary paragraph — the about bio reads better flat.
+   Everything is escaped first, so no formatting can smuggle in a tag. */
+function prose(string $text, bool $headings = true): string
 {
-    $out = '';
+    $out   = '';
+    $para  = [];
+    $items = [];
 
-    foreach (preg_split('/\n\s*\n/', trim($text)) ?: [] as $block) {
-        $block = trim($block);
-
-        if ($block === '') {
-            continue;
+    $flush = static function () use (&$out, &$para, &$items): void {
+        if ($items !== []) {
+            $out .= '<ul class="d-grid gap-2 mb-4">';
+            foreach ($items as $one) {
+                $out .= '<li>' . e($one) . '</li>';
+            }
+            $out .= '</ul>';
+            $items = [];
         }
 
-        if (str_starts_with($block, '## ')) {
-            $out .= '<h2 class="h4 mt-5 mb-3">' . e(substr($block, 3)) . '</h2>';
-        } elseif (str_starts_with($block, '- ')) {
-            $items = '';
-            foreach (preg_split('/\n/', $block) ?: [] as $line) {
-                $items .= '<li>' . e(ltrim($line, "- \t")) . '</li>';
+        if ($para !== []) {
+            $out  .= '<p>' . nl2br(e(implode("\n", $para))) . '</p>';
+            $para  = [];
+        }
+    };
+
+    foreach (preg_split('/\n/', trim($text)) ?: [] as $line) {
+        $line = rtrim($line);
+
+        if (trim($line) === '') {
+            $flush();
+        } elseif (str_starts_with($line, '## ')) {
+            $flush();
+            $out .= $headings
+                ? '<h2 class="h4 mt-5 mb-3">' . e(substr($line, 3)) . '</h2>'
+                : '<p>' . e(substr($line, 3)) . '</p>';
+        } elseif (str_starts_with($line, '- ')) {
+            if ($para !== []) {
+                $flush();
             }
-            $out .= '<ul class="d-grid gap-2 mb-4">' . $items . '</ul>';
+            $items[] = ltrim(substr($line, 2));
         } else {
-            $out .= '<p>' . nl2br(e($block)) . '</p>';
+            if ($items !== []) {
+                $flush();
+            }
+            $para[] = $line;
         }
     }
+
+    $flush();
 
     return $out;
 }

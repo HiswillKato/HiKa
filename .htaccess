@@ -37,7 +37,11 @@ RewriteRule ^\.(?!well-known) - [F,L]
 # --------------------------------------------------------------------------
 # /admin/projects opens admin/projects.php, and so on. The name is kept to
 # lowercase words and dashes so a path can never climb out of admin/.
+# The existence check matters under PHP-FPM: rewriting to a .php that is not
+# there hands a missing file to the proxy, which answers with a bare "File not
+# found." and skips ErrorDocument. Unmatched names now fall through to the 404.
 RewriteRule ^admin/?$ admin/index.php [L]
+RewriteCond %{DOCUMENT_ROOT}/admin/$1.php -f
 RewriteRule ^admin/([a-z][a-z0-9-]*)/?$ admin/$1.php [L,QSA]
 
 # --------------------------------------------------------------------------
@@ -51,9 +55,11 @@ RewriteRule ^projects/([A-Za-z0-9-]+)/?$ project.php?slug=$1 [L,QSA]
 # 4. SHORT ADDRESSES FOR THE FLAT PAGES
 # --------------------------------------------------------------------------
 # /about -> about.php, but only when nothing real lives at that name — so
-# assets/css/style.css and the folders beneath it are left alone.
+# assets/css/style.css and the folders beneath it are left alone. $1 is tested
+# rather than REQUEST_FILENAME so a trailing slash (/about/) still resolves.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php -f
 RewriteRule ^([a-z][a-z0-9-]*)/?$ $1.php [L]
 
 # --------------------------------------------------------------------------
