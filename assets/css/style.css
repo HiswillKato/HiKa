@@ -1,0 +1,601 @@
+/* ============================================================================
+   HIKA — "Aurora"
+   A dark-first, terminal-flavoured theme laid on Bootstrap 5.3 primitives.
+
+   Nothing here rebuilds a Bootstrap component. Colours, radii and shadows are
+   published as --bs-* tokens, so the built-ins pick up the brand on their own.
+   The bespoke classes exist only where Bootstrap has no primitive:
+     · colour helpers (.text-*, .bg-*, .border-*)
+     · the accent buttons (.btn-primary is re-skinned, because Bootstrap bakes
+       its variant colours at build time and they do not follow --bs-primary)
+     · the pieces this site names by hand — the terminal window, the aurora
+       gradient, meters, the timeline, social chips and the reveal animation.
+   Dark is the default. `[data-theme="light"]` lifts the whole palette.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. Fonts. Plus Jakarta Sans for the body, Fraunces for the hero name, and a
+   monospace stack for the terminal details. All but the system monospace ship
+   as local files, so nothing is fetched from a third party.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('../webfonts/plus-jakarta-sans-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../webfonts/fraunces-latin.woff2') format('woff2');
+}
+
+/* ---------------------------------------------------------------------------
+   2. Tokens — dark by default.
+   --------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+
+  --bs-font-sans-serif: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --bs-font-monospace: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-line-height: 1.7;
+
+  /* Surfaces */
+  --bs-body-bg: #070c11;
+  --bs-body-bg-rgb: 7, 12, 17;
+  --bs-body-color: #cddbe4;
+  --bs-body-color-rgb: 205, 219, 228;
+  --bs-heading-color: #eef7fb;
+  --bs-secondary-color: #8399a8;
+  --bs-secondary-bg: #0d161d;
+  --bs-tertiary-bg: #121d26;
+  --bs-border-color: rgba(140, 180, 205, 0.16);
+  --bs-border-color-translucent: rgba(140, 180, 205, 0.09);
+  --surface: #0e1820;
+  --surface-2: #13212b;
+
+  /* Brand — aurora mint */
+  --bs-primary: #2ee6a8;
+  --bs-primary-rgb: 46, 230, 168;
+  --bs-primary-text-emphasis: #74f4cb;
+  --bs-primary-bg-subtle: rgba(46, 230, 168, 0.12);
+  --bs-primary-border-subtle: rgba(46, 230, 168, 0.32);
+  --on-primary: #04150e;
+
+  /* Second accent — sky, used only in gradients */
+  --sky: #4bb8ff;
+  --sky-rgb: 75, 184, 255;
+
+  /* Warm accent */
+  --bs-warning: #f4b860;
+  --bs-warning-rgb: 244, 184, 96;
+  --bs-warning-text-emphasis: #f7cd8f;
+  --bs-warning-bg-subtle: rgba(244, 184, 96, 0.14);
+  --bs-warning-border-subtle: rgba(244, 184, 96, 0.32);
+
+  --bs-danger: #ff6b6b;
+  --bs-danger-rgb: 255, 107, 107;
+  --bs-success: #2ee6a8;
+  --bs-success-rgb: 46, 230, 168;
+  --bs-info: #4bb8ff;
+  --bs-info-rgb: 75, 184, 255;
+  --bs-dark: #05090d;
+  --bs-dark-rgb: 5, 9, 13;
+
+  /* Links */
+  --bs-link-color-rgb: var(--bs-primary-rgb);
+  --bs-link-hover-color-rgb: 116, 244, 203;
+  --bs-link-decoration: none;
+
+  /* Shape */
+  --bs-border-radius: 0.75rem;
+  --bs-border-radius-sm: 0.45rem;
+  --bs-border-radius-lg: 1rem;
+  --bs-border-radius-xl: 1.35rem;
+  --bs-border-radius-xxl: 1.75rem;
+
+  /* Depth */
+  --bs-box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 22px -12px rgba(0, 0, 0, 0.7);
+  --bs-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), 0 20px 45px -20px rgba(0, 0, 0, 0.8);
+  --bs-box-shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.5), 0 36px 70px -30px rgba(0, 0, 0, 0.85);
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --snap: 0.18s var(--ease);
+  --focus: 0 0 0 0.22rem rgba(46, 230, 168, 0.28);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bs-body-bg: #f6f9fb;
+  --bs-body-bg-rgb: 246, 249, 251;
+  --bs-body-color: #1b2b34;
+  --bs-body-color-rgb: 27, 43, 52;
+  --bs-heading-color: #0b1a22;
+  --bs-emphasis-color: #000;
+  --bs-secondary-color: #5d7885;
+  --bs-secondary-bg: #eef3f6;
+  --bs-tertiary-bg: #e6eef2;
+  --bs-border-color: rgba(11, 26, 34, 0.13);
+  --bs-border-color-translucent: rgba(11, 26, 34, 0.07);
+  --surface: #ffffff;
+  --surface-2: #f1f6f8;
+
+  --bs-primary: #0f9e73;
+  --bs-primary-rgb: 15, 158, 115;
+  --bs-primary-text-emphasis: #0b7a58;
+  --bs-primary-bg-subtle: #d8f4ea;
+  --bs-primary-border-subtle: #a4e6d1;
+  --on-primary: #ffffff;
+
+  --sky: #1586d6;
+  --sky-rgb: 21, 134, 214;
+
+  --bs-warning-text-emphasis: #8a5a12;
+  --bs-warning-bg-subtle: #fdefd5;
+  --bs-warning-border-subtle: #f6d79c;
+
+  --bs-link-color-rgb: 15, 158, 115;
+  --bs-link-hover-color-rgb: 11, 122, 88;
+
+  --bs-box-shadow-sm: 0 1px 2px rgba(11, 26, 34, 0.06), 0 8px 20px -12px rgba(11, 26, 34, 0.18);
+  --bs-box-shadow: 0 2px 6px rgba(11, 26, 34, 0.08), 0 20px 42px -22px rgba(11, 26, 34, 0.28);
+  --bs-box-shadow-lg: 0 6px 14px rgba(11, 26, 34, 0.1), 0 34px 64px -30px rgba(11, 26, 34, 0.34);
+
+  --focus: 0 0 0 0.22rem rgba(15, 158, 115, 0.25);
+}
+
+/* ---------------------------------------------------------------------------
+   3. Base & typography.
+   --------------------------------------------------------------------------- */
+body {
+  min-height: 100vh;
+  background-color: var(--bs-body-bg);
+  background-image:
+    radial-gradient(1100px 560px at 82% -8%, rgba(var(--bs-primary-rgb), 0.10), transparent 60%),
+    radial-gradient(900px 520px at 0% -4%, rgba(var(--sky-rgb), 0.08), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--bs-heading-color);
+}
+
+.lead { color: var(--bs-secondary-color); }
+hr { opacity: 0.12; }
+::selection { background: rgba(var(--bs-primary-rgb), 0.28); }
+.text-body-secondary { color: var(--bs-secondary-color) !important; }
+
+/* The hero name keeps a serif face against all the monospace around it — the
+   one piece of editorial warmth in an otherwise technical page. */
+.hero-name {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+.eyebrow {
+  font-family: var(--bs-font-monospace);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bs-primary);
+}
+
+.mono { font-family: var(--bs-font-monospace); }
+
+.aurora {
+  background-image: linear-gradient(100deg, var(--bs-primary), var(--sky) 72%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   4. Links.
+   --------------------------------------------------------------------------- */
+a {
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.08em;
+  transition: color var(--snap);
+}
+a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.page-link):not(.list-group-item):not(.social):hover {
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--bs-link-color-rgb), 0.5);
+}
+
+/* ---------------------------------------------------------------------------
+   5. Buttons. Bootstrap bakes each variant's colours, so .btn-primary is
+   re-skinned by hand; every other button follows the tokens on its own.
+   --------------------------------------------------------------------------- */
+.btn {
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  transition: transform var(--snap), box-shadow var(--snap), color var(--snap),
+              background-color var(--snap), border-color var(--snap);
+}
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { box-shadow: var(--focus); }
+
+.btn-primary {
+  --bs-btn-color: var(--on-primary);
+  --bs-btn-bg: var(--bs-primary);
+  --bs-btn-border-color: var(--bs-primary);
+  --bs-btn-hover-color: var(--on-primary);
+  --bs-btn-hover-bg: #26cf98;
+  --bs-btn-hover-border-color: #26cf98;
+  --bs-btn-active-color: var(--on-primary);
+  --bs-btn-active-bg: #21bd8a;
+  --bs-btn-active-border-color: #21bd8a;
+  --bs-btn-disabled-color: var(--on-primary);
+  --bs-btn-disabled-bg: var(--bs-primary);
+  --bs-btn-disabled-border-color: var(--bs-primary);
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+.btn-primary:hover { box-shadow: 0 12px 30px -12px rgba(var(--bs-primary-rgb), 0.7); }
+
+/* A quiet button that borrows the page surface rather than a colour. */
+.btn-ghost {
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-color: var(--bs-primary);
+  --bs-btn-hover-bg: var(--surface-2);
+  --bs-btn-hover-border-color: rgba(var(--bs-primary-rgb), 0.6);
+  --bs-btn-active-color: var(--bs-primary);
+  --bs-btn-active-bg: var(--surface-2);
+  --bs-btn-active-border-color: rgba(var(--bs-primary-rgb), 0.6);
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.btn.rounded-circle {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.btn-sm.rounded-circle { width: 2rem; height: 2rem; }
+
+/* Fields take the same pill shape as the buttons; a textarea is a paragraph
+   box, not a line, so it stays rounded without going fully pill. */
+.form-control,
+.form-select {
+  border-radius: 999px;
+}
+textarea.form-control { border-radius: 0.7rem; }
+/* The colour swatch is not a line either — a pill would make it an oval. */
+.form-control-color { border-radius: 0.55rem; }
+
+/* ---------------------------------------------------------------------------
+   6. Cards & surfaces.
+   --------------------------------------------------------------------------- */
+.card {
+  --bs-card-border-width: 1px;
+  --bs-card-border-color: var(--bs-border-color);
+  --bs-card-bg: var(--surface);
+  --bs-card-cap-bg: transparent;
+  --bs-card-title-color: var(--bs-heading-color);
+  box-shadow: var(--bs-box-shadow-sm);
+  transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap);
+}
+
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+}
+
+/* The piece of work on the projects page. */
+.work {
+  overflow: hidden;
+  height: 100%;
+}
+@media (hover: hover) {
+  .work:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--bs-box-shadow);
+    border-color: rgba(var(--bs-primary-rgb), 0.5);
+  }
+}
+.work-icon {
+  width: 3rem;
+  height: 3rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bs-border-radius);
+  font-size: 1.35rem;
+  color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.12);
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.2);
+}
+
+/* ---------------------------------------------------------------------------
+   7. Masthead.
+   --------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: rgba(var(--bs-body-bg-rgb), 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.site-header .navbar { --bs-navbar-padding-y: 0.6rem; }
+.site-header .nav-link { font-weight: 500; }
+.site-header .nav-link.active { color: var(--bs-primary) !important; }
+
+.brand-mark {
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.85rem;
+  font-family: var(--bs-font-monospace);
+  font-weight: 700;
+  color: var(--on-primary);
+  background-image: linear-gradient(135deg, var(--bs-primary), var(--sky));
+  box-shadow: 0 8px 22px -10px rgba(var(--bs-primary-rgb), 0.8);
+}
+.brand-name { font-weight: 700; letter-spacing: -0.01em; color: var(--bs-heading-color); line-height: 1.05; }
+.brand-tagline { font-family: var(--bs-font-monospace); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--bs-secondary-color); }
+.navbar-brand:hover .brand-name { color: var(--bs-primary); }
+
+.theme-toggle .fa-sun { display: none; }
+[data-theme="light"] .theme-toggle .fa-sun { display: inline-flex; }
+[data-theme="light"] .theme-toggle .fa-moon { display: none; }
+
+/* Bootstrap has no min-width reset; flex children still need to shrink. */
+.min-width-0 { min-width: 0; }
+
+/* ---------------------------------------------------------------------------
+   8. The terminal window — the hero's centrepiece.
+   --------------------------------------------------------------------------- */
+.terminal {
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow), 0 0 90px -34px rgba(var(--bs-primary-rgb), 0.55);
+  overflow: hidden;
+}
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--bs-border-color);
+  background: rgba(var(--bs-body-bg-rgb), 0.4);
+}
+.terminal-dot { width: 0.72rem; height: 0.72rem; border-radius: 50%; }
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.amber { background: #febc2e; }
+.terminal-dot.green { background: #28c840; }
+.terminal-title { margin-inline: auto; font-family: var(--bs-font-monospace); font-size: 0.78rem; color: var(--bs-secondary-color); }
+.terminal-body {
+  padding: 1.35rem 1.5rem;
+  font-family: var(--bs-font-monospace);
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.terminal-body .prompt { color: var(--bs-primary); }
+.terminal-body .path { color: var(--sky); }
+.terminal-body .arg { color: var(--bs-warning); }
+.terminal-body .out { color: var(--bs-secondary-color); }
+.caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: -0.16em;
+  background: var(--bs-primary);
+  animation: blink 1.05s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------------------------------------------------------------------------
+   9. Meters — a skill level drawn as a bar.
+   --------------------------------------------------------------------------- */
+.meter {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: rgba(var(--bs-body-color-rgb), 0.12);
+  overflow: hidden;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background-image: linear-gradient(90deg, var(--bs-primary), var(--sky));
+}
+.skill-icon { width: 1.8rem; text-align: center; color: var(--bs-primary); font-size: 1.15rem; }
+
+/* Plain chips for interests and hands-on skills. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--bs-border-color);
+  background: var(--surface);
+  font-weight: 500;
+  transition: border-color var(--snap), color var(--snap), transform var(--snap);
+}
+.chip:hover { color: var(--bs-primary); border-color: rgba(var(--bs-primary-rgb), 0.55); transform: translateY(-2px); }
+.chip i { color: var(--bs-primary); }
+
+/* ---------------------------------------------------------------------------
+   10. Timeline.
+   --------------------------------------------------------------------------- */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.4rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background-image: linear-gradient(180deg, var(--bs-primary), rgba(var(--bs-primary-rgb), 0));
+}
+.timeline-item { position: relative; padding-bottom: 2rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.72rem;
+  top: 0.4rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--bs-primary);
+  box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.18);
+}
+.timeline-period {
+  font-family: var(--bs-font-monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--bs-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   11. Social chips & contact.
+   --------------------------------------------------------------------------- */
+.social {
+  width: 2.9rem;
+  height: 2.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  border: 1px solid var(--bs-border-color);
+  background: var(--surface);
+  color: var(--bs-body-color);
+  font-size: 1.15rem;
+  transition: transform var(--snap), color var(--snap), border-color var(--snap), box-shadow var(--snap);
+}
+.social:hover {
+  transform: translateY(-4px);
+  color: var(--brand, var(--bs-primary));
+  border-color: currentColor;
+  box-shadow: 0 14px 30px -14px currentColor;
+}
+.contact-line {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--bs-border-radius);
+  border: 1px solid var(--bs-border-color);
+  background: var(--surface);
+  transition: border-color var(--snap), transform var(--snap);
+}
+.contact-line:hover { border-color: rgba(var(--bs-primary-rgb), 0.5); transform: translateX(3px); }
+.contact-line .contact-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  background: rgba(var(--bs-primary-rgb), 0.12);
+  color: var(--bs-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   12. Footer & back-to-top.
+   --------------------------------------------------------------------------- */
+.site-footer { border-top: 1px solid var(--bs-border-color); background: var(--surface); }
+#top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1040;
+  box-shadow: var(--bs-box-shadow);
+}
+#top[hidden] { display: none; }
+
+/* ---------------------------------------------------------------------------
+   13. Motion. Elements marked .reveal rise into place once, when scrolled to.
+   --------------------------------------------------------------------------- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+a:focus-visible, .btn:focus-visible, .social:focus-visible, .chip:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   14. Admin shell — the dark offcanvas sidebar, built on Bootstrap offcanvas.
+   --------------------------------------------------------------------------- */
+.admin-shell { min-height: 100vh; align-items: stretch; }
+.admin-shell #sidebar { --bs-offcanvas-width: 270px; }
+.admin-side { background: var(--surface); border-right: 1px solid var(--bs-border-color); }
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--bs-border-radius-sm);
+  color: var(--bs-body-color);
+  font-weight: 500;
+}
+.admin-link i { width: 1.25rem; text-align: center; color: var(--bs-secondary-color); }
+.admin-link:hover { background: var(--surface-2); color: var(--bs-primary); }
+.admin-link:hover i { color: var(--bs-primary); }
+.admin-link.active { background: rgba(var(--bs-primary-rgb), 0.14); color: var(--bs-primary); }
+.admin-link.active i { color: var(--bs-primary); }
+@media (min-width: 992px) {
+  .admin-shell #sidebar {
+    width: 270px;
+    flex: 0 0 270px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}
+
+/* A small log-in card and the code snippets the admin shows for addresses. */
+.login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 1.5rem; }
+code {
+  font-family: var(--bs-font-monospace);
+  color: var(--bs-primary);
+  background: rgba(var(--bs-primary-rgb), 0.1);
+  padding: 0.15em 0.4em;
+  border-radius: var(--bs-border-radius-sm);
+}

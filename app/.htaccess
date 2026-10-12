@@ -1,0 +1,10 @@
+# Belt and braces: the root .htaccess already denies app/, but if this
+# folder is ever copied somewhere served on its own, nothing in it should
+# run as a script.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

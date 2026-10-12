@@ -1,0 +1,62 @@
+# ==========================================================================
+# hika — root .htaccess
+#
+# Two jobs, in this order:
+#   1. Keep the machinery (app/, the database file, the docs) off the web.
+#   2. Give every page a short address: /about instead of /about.php, and
+#      /projects/sifm instead of /project.php?slug=sifm.
+#
+# Rules run top to bottom and the first match wins, so the deny list has to
+# sit above the "this file really exists, let it through" rule at the bottom.
+# ==========================================================================
+
+DirectoryIndex index.php
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+# --------------------------------------------------------------------------
+# 1. NEVER SERVED OVER HTTP
+# --------------------------------------------------------------------------
+# app/ holds config.php, which carries the database password, and the shared
+# page parts. Every page `require`s them, and a require never passes through
+# mod_rewrite, so denying the folder costs the site nothing.
+RewriteRule ^app(?:/|$) - [F,L]
+RewriteRule .*/includes/ - [F,L]
+
+# Documentation and data files. composer/.env are named explicitly because
+# they are the ones most likely to be typed into a browser by mistake.
+RewriteRule \.(?:md|sql|log|ini|sh|bak|lock|swp|json)$ - [F,L]
+RewriteRule ^composer\.(?:json|lock)$ - [F,L]
+RewriteRule ^\.env$ - [F,L]
+RewriteRule ^\.(?!well-known) - [F,L]
+
+# --------------------------------------------------------------------------
+# 2. THE ADMIN PANEL
+# --------------------------------------------------------------------------
+# /admin/projects opens admin/projects.php, and so on. The name is kept to
+# lowercase words and dashes so a path can never climb out of admin/.
+RewriteRule ^admin/?$ admin/index.php [L]
+RewriteRule ^admin/([a-z][a-z0-9-]*)/?$ admin/$1.php [L,QSA]
+
+# --------------------------------------------------------------------------
+# 3. PROJECT DETAIL PAGES
+# --------------------------------------------------------------------------
+# /projects/sifm -> project.php?slug=sifm. The slug is cut to letters, digits
+# and dashes, so a path cannot smuggle in a slash or a dot.
+RewriteRule ^projects/([A-Za-z0-9-]+)/?$ project.php?slug=$1 [L,QSA]
+
+# --------------------------------------------------------------------------
+# 4. SHORT ADDRESSES FOR THE FLAT PAGES
+# --------------------------------------------------------------------------
+# /about -> about.php, but only when nothing real lives at that name — so
+# assets/css/style.css and the folders beneath it are left alone.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z][a-z0-9-]*)/?$ $1.php [L]
+
+# --------------------------------------------------------------------------
+# 5. POLITE ERRORS
+# --------------------------------------------------------------------------
+ErrorDocument 404 /404.php
