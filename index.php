@@ -53,7 +53,7 @@ require __DIR__ . '/app/parts/header.php';
                     <div class="out"><?= e($me['name'] ?? OWNER) ?> — <?= e($me['title'] ?? '') ?></div>
 
                     <div class="mt-3"><span class="prompt">hiswill@localhost</span>:<span class="path">~</span>$ <span class="arg">cat</span> interests.txt</div>
-                    <div class="out">&gt; <span data-typing='["Linux &amp; Distros","Cloud &amp; AWS","Bash Scripting","Web Development","Artificial Intelligence","Systems Security"]'></span><span class="caret"></span></div>
+                    <div class="out">&gt; <span data-typing='["Linux", "Windows", "Cloud &amp; AWS","Bash Scripting","Web Development","Artificial Intelligence","Systems Security"]'></span><span class="caret"></span></div>
 
                     <div class="mt-3"><span class="prompt">hiswill@localhost</span>:<span class="path">~</span>$ <span class="arg">ls</span> projects/</div>
                     <div class="out">BUBAPC&nbsp;&nbsp;Gospelzora&nbsp;&nbsp;SiFM</div>
