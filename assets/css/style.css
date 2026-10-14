@@ -285,6 +285,7 @@ a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.page-link
 .form-control,
 .form-select {
   border-radius: 999px;
+  min-width: 0;
 }
 textarea.form-control { border-radius: 0.7rem; }
 /* The colour swatch is not a line either — a pill would make it an oval. */
@@ -411,11 +412,12 @@ textarea.form-control { border-radius: 0.7rem; }
   font-family: var(--bs-font-monospace);
   font-size: 0.95rem;
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 .terminal-body .prompt { color: var(--bs-primary); }
 .terminal-body .path { color: var(--sky); }
 .terminal-body .arg { color: var(--bs-warning); }
-.terminal-body .out { color: var(--bs-secondary-color); }
+.terminal-body .out { color: var(--bs-secondary-color); white-space: pre-wrap; }
 .caret {
   display: inline-block;
   width: 0.6em;
@@ -523,6 +525,12 @@ textarea.form-control { border-radius: 0.7rem; }
   border: 1px solid var(--bs-border-color);
   background: var(--surface);
   transition: border-color var(--snap), transform var(--snap);
+}
+/* The label copy may hold long unbroken addresses; let it shrink and wrap
+   instead of pushing the line wider than the viewport on small screens. */
+.contact-line > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .contact-line:hover { border-color: rgba(var(--bs-primary-rgb), 0.5); transform: translateX(3px); }
 .contact-line .contact-icon {

@@ -20,7 +20,7 @@ require __DIR__ . '/app/parts/header.php';
 </section>
 
 <?php
-$barred = ['language', 'stack'];
+$barred = flag('levels') ? ['language', 'stack'] : [];
 foreach (categories() as $key => $heading):
     $rows = pick($all, $key);
     if ($rows === []) {

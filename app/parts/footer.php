@@ -43,12 +43,12 @@ $socials = socials();
                 <h6 class="eyebrow mb-3">Get in touch</h6>
                 <ul class="list-unstyled d-grid gap-2 mb-0">
                     <li>
-                        <a class="link-body-emphasis text-decoration-none" href="mailto:<?= e($me['email'] ?? EMAIL) ?>">
+                        <a class="link-body-emphasis text-decoration-none text-break" href="mailto:<?= e($me['email'] ?? EMAIL) ?>">
                             <?= icon('fa-solid fa-envelope me-2 text-primary') ?><?= e($me['email'] ?? EMAIL) ?>
                         </a>
                     </li>
                     <li>
-                        <a class="link-body-emphasis text-decoration-none" href="tel:<?= e(preg_replace('/\s+/', '', $me['phone'] ?? '')) ?>">
+                        <a class="link-body-emphasis text-decoration-none text-break" href="tel:<?= e(preg_replace('/\s+/', '', $me['phone'] ?? '')) ?>">
                             <?= icon('fa-solid fa-phone me-2 text-primary') ?><?= e($me['phone'] ?? '') ?>
                         </a>
                     </li>

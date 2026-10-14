@@ -10,13 +10,15 @@
     document.addEventListener('DOMContentLoaded', function () {
 
         /* ------------------------------------------------------------------
-           1. THEME BUTTON
+           1. THEME BUTTONS
            The colour is chosen before the page paints by the tiny script in
            the head. This only handles the button and remembers the choice.
+           Mobile has its own copy by the navbar toggler, so every match on
+           the page is wired — both copies stay in step.
            ------------------------------------------------------------------ */
-        var toggle = document.getElementById('theme-toggle');
+        var toggles = document.querySelectorAll('.theme-toggle');
 
-        if (toggle) {
+        toggles.forEach(function (toggle) {
             var moon = toggle.querySelector('.fa-moon');
             var sun = toggle.querySelector('.fa-sun');
 
@@ -40,7 +42,7 @@
                 }
                 reflect();
             });
-        }
+        });
 
         /* ------------------------------------------------------------------
            2. BACK TO TOP

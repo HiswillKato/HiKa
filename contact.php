@@ -59,49 +59,6 @@ require __DIR__ . '/app/parts/header.php';
 
 <section class="container py-5">
     <div class="row g-4 g-lg-5">
-        <!-- ---------- details ---------- -->
-        <div class="col-lg-5">
-            <span class="eyebrow">Get in touch</span>
-            <h1 class="display-4 mt-2 mb-3">Let's talk</h1>
-            <p class="text-body-secondary mb-4">
-                Whether it's a project, a question, a Linux tip, or just a hello — my
-                inbox is always open. I usually reply within a day.
-            </p>
-
-            <div class="d-grid gap-3 mb-4">
-                <a class="contact-line" href="mailto:<?= e($me['email'] ?? EMAIL) ?>">
-                    <span class="contact-icon"><?= icon('fa-solid fa-envelope') ?></span>
-                    <span>
-                        <span class="d-block text-body-secondary small">Email</span>
-                        <span class="fw-semibold"><?= e($me['email'] ?? EMAIL) ?></span>
-                    </span>
-                </a>
-                <a class="contact-line" href="tel:<?= e(preg_replace('/\s+/', '', $me['phone'] ?? '')) ?>">
-                    <span class="contact-icon"><?= icon('fa-solid fa-phone') ?></span>
-                    <span>
-                        <span class="d-block text-body-secondary small">Phone</span>
-                        <span class="fw-semibold"><?= e($me['phone'] ?? '') ?></span>
-                    </span>
-                </a>
-                <a class="contact-line" href="https://wa.me/<?= e(preg_replace('/\D/', '', $me['phone'] ?? '')) ?>" target="_blank" rel="noopener">
-                    <span class="contact-icon"><?= icon('fa-brands fa-whatsapp') ?></span>
-                    <span>
-                        <span class="d-block text-body-secondary small">WhatsApp</span>
-                        <span class="fw-semibold">Chat with me</span>
-                    </span>
-                </a>
-                <div class="contact-line">
-                    <span class="contact-icon"><?= icon('fa-solid fa-location-dot') ?></span>
-                    <span>
-                        <span class="d-block text-body-secondary small">Based in</span>
-                        <span class="fw-semibold"><?= e($me['location'] ?? '') ?></span>
-                    </span>
-                </div>
-            </div>
-
-            <?php require __DIR__ . '/app/parts/socials.php'; ?>
-        </div>
-
         <!-- ---------- form ---------- -->
         <div class="col-lg-7">
             <div class="card p-4 p-lg-5">
@@ -152,6 +109,49 @@ require __DIR__ . '/app/parts/header.php';
                     </div>
                 </form>
             </div>
+        </div>
+
+        <!-- ---------- details ---------- -->
+        <div class="col-lg-5">
+            <span class="eyebrow">Get in touch</span>
+            <h1 class="display-4 mt-2 mb-3">Let's talk</h1>
+            <p class="text-body-secondary mb-4">
+                Whether it's a project, a question, a Linux tip, or just a hello — my
+                inbox is always open. I usually reply within a day.
+            </p>
+
+            <div class="d-grid gap-3 mb-4">
+                <a class="contact-line" href="mailto:<?= e($me['email'] ?? EMAIL) ?>">
+                    <span class="contact-icon"><?= icon('fa-solid fa-envelope') ?></span>
+                    <span>
+                        <span class="d-block text-body-secondary small">Email</span>
+                        <span class="fw-semibold"><?= e($me['email'] ?? EMAIL) ?></span>
+                    </span>
+                </a>
+                <a class="contact-line" href="tel:<?= e(preg_replace('/\s+/', '', $me['phone'] ?? '')) ?>">
+                    <span class="contact-icon"><?= icon('fa-solid fa-phone') ?></span>
+                    <span>
+                        <span class="d-block text-body-secondary small">Phone</span>
+                        <span class="fw-semibold"><?= e($me['phone'] ?? '') ?></span>
+                    </span>
+                </a>
+                <a class="contact-line" href="https://wa.me/<?= e(preg_replace('/\D/', '', $me['phone'] ?? '')) ?>" target="_blank" rel="noopener">
+                    <span class="contact-icon"><?= icon('fa-brands fa-whatsapp') ?></span>
+                    <span>
+                        <span class="d-block text-body-secondary small">WhatsApp</span>
+                        <span class="fw-semibold">Chat with me</span>
+                    </span>
+                </a>
+                <div class="contact-line">
+                    <span class="contact-icon"><?= icon('fa-solid fa-location-dot') ?></span>
+                    <span>
+                        <span class="d-block text-body-secondary small">Based in</span>
+                        <span class="fw-semibold"><?= e($me['location'] ?? '') ?></span>
+                    </span>
+                </div>
+            </div>
+
+            <?php require __DIR__ . '/app/parts/socials.php'; ?>
         </div>
     </div>
 </section>

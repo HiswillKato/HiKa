@@ -94,6 +94,15 @@ require __DIR__ . '/parts/header.php';
                 <a class="btn btn-ghost" href="<?= panel('social') ?>">
                     <?= icon('fa-solid fa-plus') ?> Add a social link
                 </a>
+                <a class="btn btn-ghost" href="<?= panel('timeline') ?>">
+                    <?= icon('fa-solid fa-plus') ?> Add a timeline entry
+                </a>
+                <a class="btn btn-ghost" href="<?= panel('terminal') ?>">
+                    <?= icon('fa-solid fa-terminal') ?> Edit the hero terminal
+                </a>
+                <a class="btn btn-ghost" href="<?= panel('settings') ?>">
+                    <?= icon('fa-solid fa-gear') ?> Open site settings
+                </a>
                 <a class="btn btn-ghost" href="<?= panel('profile') ?>">
                     <?= icon('fa-solid fa-id-badge') ?> Edit my profile
                 </a>

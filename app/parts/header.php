@@ -52,6 +52,8 @@ $nav = [
                 </span>
             </a>
 
+            <?= themeToggle('d-lg-none ms-auto') ?>
+
             <button class="navbar-toggler border-0 shadow-none" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navmenu"
                     aria-controls="navmenu" aria-expanded="false" aria-label="Menu">
@@ -68,13 +70,8 @@ $nav = [
                         </li>
                     <?php endforeach; ?>
 
-                    <li class="nav-item ms-lg-2">
-                        <button type="button"
-                                class="btn btn-ghost btn-sm rounded-circle theme-toggle"
-                                id="theme-toggle" aria-label="Switch theme">
-                            <i class="fa-solid fa-moon"></i>
-                            <i class="fa-solid fa-sun"></i>
-                        </button>
+                    <li class="nav-item d-none d-lg-block ms-lg-2">
+                        <?= themeToggle('btn-sm') ?>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ms-lg-2">
                         <a class="btn btn-primary" href="<?= url('contact') ?>">

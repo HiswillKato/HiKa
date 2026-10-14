@@ -11,7 +11,7 @@
 
 SET NAMES utf8mb4;
 
-DROP TABLE IF EXISTS messages, timeline, projects, skills, socials, users, profile;
+DROP TABLE IF EXISTS flags, terminal, messages, timeline, projects, skills, socials, users, profile;
 
 -- --------------------------------------------------------------------------
 -- profile — the one row that describes Hiswill.
@@ -50,6 +50,32 @@ CREATE TABLE users (
   created  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE KEY users_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------------------------
+-- flags — the site-wide on/off switches (skill levels, maintenance mode).
+-- The defaults live in app/data.php (`settings()`), so a fresh site runs on
+-- those; the admin's saves land here.
+-- --------------------------------------------------------------------------
+CREATE TABLE flags (
+  `key` VARCHAR(60) NOT NULL,
+  value TINYINT(1)  NOT NULL DEFAULT 0,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------------------------
+-- terminal — the single row (like profile) that drives the home-page
+-- terminal. `lines` holds one `kind::content` line per row of output:
+--   c::whoami            a typed command — prompt, folder and command colours
+--   out::Hello there     plain output; {name} and {title} become the profile
+--   type::A, B, C        a rotating typing line (comma separated items)
+-- --------------------------------------------------------------------------
+CREATE TABLE terminal (
+  id    TINYINT(1)   NOT NULL DEFAULT 1,
+  host  VARCHAR(120) NOT NULL DEFAULT 'hiswill@localhost',
+  path  VARCHAR(60)  NOT NULL DEFAULT '~',
+  `lines` MEDIUMTEXT NOT NULL,
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------------------------
@@ -167,6 +193,18 @@ I am into artificial intelligence, systems security and open-source software. I 
   'hiswillkato@gmail.com',
   '+256751884466',
   1
+);
+
+-- The home-page terminal, from the hero on the index page.
+INSERT INTO terminal (host, path, `lines`) VALUES (
+  'hiswill@localhost',
+  '~',
+  'c::whoami
+out::{name} — {title}
+c::cat interests.txt
+type::Linux, Windows, Cloud & AWS, Bash Scripting, Web Development, Artificial Intelligence, Systems Security
+c::ls projects/
+out::BUBAPC  Gospelzora  SiFM'
 );
 
 -- The first account. Password is `Hiswill256@` — change it after signing in.

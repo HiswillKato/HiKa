@@ -113,6 +113,17 @@ function icon(string $classes): string
     return '<i class="' . e($classes) . '" aria-hidden="true"></i>';
 }
 
+/* The one button that flips the colour scheme. `$extra` carries per-placement
+   classes, so the same control can live in the navbar bar and the nav menu. */
+function themeToggle(string $extra = ''): string
+{
+    $extra = $extra === '' ? '' : ' ' . $extra;
+
+    return '<button type="button" class="btn btn-ghost rounded-circle theme-toggle' . $extra
+        . '" aria-label="Switch theme">'
+        . icon('fa-solid fa-moon') . icon('fa-solid fa-sun') . '</button>';
+}
+
 /* Turn a block of plain text into safe HTML. Lines are read one at a time, so
    a heading, a list and a paragraph can sit side by side without needing a
    blank line between them: a `## ` line is a heading, a run of `- ` lines is a

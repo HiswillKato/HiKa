@@ -12,7 +12,10 @@ $menu = [
     ['projects', ['projects', 'project'],       'Projects',  'fa-solid fa-diagram-project'],
     ['skills',   ['skills', 'skill'],           'Skills',    'fa-solid fa-layer-group'],
     ['socials',  ['socials', 'social'],         'Socials',   'fa-solid fa-share-nodes'],
+    ['timelines', ['timelines', 'timeline'],    'Timeline',  'fa-solid fa-timeline'],
     ['messages', ['messages', 'message'],       'Messages',  'fa-solid fa-envelope'],
+    ['terminal', ['terminal'],                  'Terminal',  'fa-solid fa-terminal'],
+    ['settings', ['settings'],                  'Settings',  'fa-solid fa-gear'],
     ['profile',  ['profile'],                   'Profile',   'fa-solid fa-id-badge'],
 ];
 $unread = total('SELECT COUNT(*) FROM messages WHERE seen = 0');
@@ -95,11 +98,7 @@ $unread = total('SELECT COUNT(*) FROM messages WHERE seen = 0');
                 <?php if (!empty($actions)): ?>
                     <div class="d-flex flex-wrap gap-2"><?= $actions ?></div>
                 <?php endif; ?>
-                <button type="button" class="btn btn-ghost rounded-circle theme-toggle"
-                        id="theme-toggle" aria-label="Switch theme">
-                    <i class="fa-solid fa-moon"></i>
-                    <i class="fa-solid fa-sun"></i>
-                </button>
+                <?= themeToggle() ?>
             </div>
         </header>
 

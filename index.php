@@ -5,13 +5,14 @@ require __DIR__ . '/app/init.php';
 $title   = OWNER;
 $section = 'home';
 $me      = me();
+$term    = terminal();
 
 require __DIR__ . '/app/parts/header.php';
 ?>
 
 <!-- =====================  HERO  ===================== -->
 <section class="container py-5">
-    <div class="row align-items-center g-5">
+    <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-6">
             <span class="eyebrow">Hello, I'm</span>
             <h1 class="hero-name display-2 mt-3 mb-2"><?= e($me['name'] ?? OWNER) ?></h1>
@@ -41,22 +42,15 @@ require __DIR__ . '/app/parts/header.php';
         </div>
 
         <div class="col-lg-6">
-            <div class="terminal reveal">
+            <div class="terminal reveal" id="terminal">
                 <div class="terminal-bar">
                     <span class="terminal-dot red"></span>
                     <span class="terminal-dot amber"></span>
                     <span class="terminal-dot green"></span>
-                    <span class="terminal-title">hiswill@localhost: ~</span>
+                    <span class="terminal-title"><?= e($term['host'] ?? 'hiswill@localhost') ?>: <?= e($term['path'] ?? '~') ?></span>
                 </div>
                 <div class="terminal-body">
-                    <div><span class="prompt">hiswill@localhost</span>:<span class="path">~</span>$ whoami</div>
-                    <div class="out"><?= e($me['name'] ?? OWNER) ?> — <?= e($me['title'] ?? '') ?></div>
-
-                    <div class="mt-3"><span class="prompt">hiswill@localhost</span>:<span class="path">~</span>$ <span class="arg">cat</span> interests.txt</div>
-                    <div class="out">&gt; <span data-typing='["Linux", "Windows", "Cloud &amp; AWS","Bash Scripting","Web Development","Artificial Intelligence","Systems Security"]'></span><span class="caret"></span></div>
-
-                    <div class="mt-3"><span class="prompt">hiswill@localhost</span>:<span class="path">~</span>$ <span class="arg">ls</span> projects/</div>
-                    <div class="out">BUBAPC&nbsp;&nbsp;Gospelzora&nbsp;&nbsp;SiFM</div>
+                    <?= termHtml() ?>
                 </div>
             </div>
         </div>
@@ -69,7 +63,7 @@ require __DIR__ . '/app/parts/header.php';
         <div class="col-6 col-lg-3">
             <div class="tile h-100 p-3 d-flex align-items-center gap-3">
                 <span class="work-icon"><?= icon('fa-solid fa-code') ?></span>
-                <div>
+                <div class="min-width-0 text-break">
                     <div class="h4 mb-0"><?= date('Y') - 2020 ?>+</div>
                     <div class="small text-body-secondary">Years coding</div>
                 </div>
@@ -78,7 +72,7 @@ require __DIR__ . '/app/parts/header.php';
         <div class="col-6 col-lg-3">
             <div class="tile h-100 p-3 d-flex align-items-center gap-3">
                 <span class="work-icon"><?= icon('fa-brands fa-aws') ?></span>
-                <div>
+                <div class="min-width-0 text-break">
                     <div class="h4 mb-0">AWS</div>
                     <div class="small text-body-secondary">Learning the cloud</div>
                 </div>
@@ -87,7 +81,7 @@ require __DIR__ . '/app/parts/header.php';
         <div class="col-6 col-lg-3">
             <div class="tile h-100 p-3 d-flex align-items-center gap-3">
                 <span class="work-icon"><?= icon('fa-brands fa-github') ?></span>
-                <div>
+                <div class="min-width-0 text-break">
                     <div class="h4 mb-0"><?= total("SELECT COUNT(*) FROM projects WHERE status = 'published'") ?></div>
                     <div class="small text-body-secondary">Public projects</div>
                 </div>
@@ -96,7 +90,7 @@ require __DIR__ . '/app/parts/header.php';
         <div class="col-6 col-lg-3">
             <div class="tile h-100 p-3 d-flex align-items-center gap-3">
                 <span class="work-icon"><?= icon('fa-solid fa-graduation-cap') ?></span>
-                <div>
+                <div class="min-width-0 text-break">
                     <div class="h4 mb-0">Busitema</div>
                     <div class="small text-body-secondary">University</div>
                 </div>
@@ -142,7 +136,7 @@ require __DIR__ . '/app/parts/header.php';
 
 <!-- =====================  SKILLS SNAPSHOT  ===================== -->
 <section class="container py-5">
-    <div class="row g-5 align-items-center">
+    <div class="row g-4 g-lg-5 align-items-center">
         <div class="col-lg-5 reveal">
             <span class="eyebrow">What I work with</span>
             <h2 class="display-6 mt-2 mb-3">A small stack, used well.</h2>
@@ -156,19 +150,27 @@ require __DIR__ . '/app/parts/header.php';
             </a>
         </div>
         <div class="col-lg-7 reveal">
-            <div class="tile p-4 d-grid gap-4">
-                <?php foreach (array_slice(pick(skills(), 'language'), 0, 5) as $skill): ?>
-                    <div>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="fw-semibold">
-                                <i class="<?= e($skill['icon']) ?> skill-icon me-1"></i><?= e($skill['name']) ?>
-                            </span>
-                            <span class="mono small text-body-secondary"><?= (int) $skill['level'] ?>%</span>
+            <?php if (flag('levels')): ?>
+                <div class="tile p-4 d-grid gap-4">
+                    <?php foreach (array_slice(pick(skills(), 'language'), 0, 5) as $skill): ?>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-semibold">
+                                    <i class="<?= e($skill['icon']) ?> skill-icon me-1"></i><?= e($skill['name']) ?>
+                                </span>
+                                <span class="mono small text-body-secondary"><?= (int) $skill['level'] ?>%</span>
+                            </div>
+                            <div class="meter"><span style="width: <?= (int) $skill['level'] ?>%"></span></div>
                         </div>
-                        <div class="meter"><span style="width: <?= (int) $skill['level'] ?>%"></span></div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <div class="tile p-4 d-flex flex-wrap gap-2">
+                    <?php foreach (array_slice(pick(skills(), 'language'), 0, 5) as $skill): ?>
+                        <span class="chip"><?= icon($skill['icon']) ?><?= e($skill['name']) ?></span>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

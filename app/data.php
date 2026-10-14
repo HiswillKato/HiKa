@@ -93,3 +93,110 @@ function categories(): array
         'practice' => 'Hands-on Skills',
     ];
 }
+
+/* The kinds a timeline entry can be, in the order the admin offers them. */
+function journeys(): array
+{
+    return [
+        'education' => 'Education',
+        'work' => 'Work',
+        'milestone' => 'Milestone',
+    ];
+}
+
+/* =========================================================================
+   SITE SWITCHES
+   The on/off switches of the whole site. `flag()` reads the flags table and
+   falls back to the defaults declared here, so the admin panel edits real
+   state while a fresh install starts with the same site. Each value is
+   [label shown in the admin panel, help text, the starting value].
+   ========================================================================= */
+
+function settings(): array
+{
+    return [
+        'levels'      => ['Skill levels', 'Show the % and progress bars next to every skill.', true],
+        'maintenance' => ['Maintenance mode', 'Visitors see a maintenance page; you can still sign in here.', false],
+    ];
+}
+
+function flag(string $key): bool
+{
+    static $flags = null;
+
+    if ($flags === null) {
+        $flags = [];
+        foreach (all('SELECT `key`, value FROM flags') as $row) {
+            $flags[$row['key']] = (bool) $row['value'];
+        }
+    }
+
+    return $flags[$key] ?? (settings()[$key][2] ?? false);
+}
+
+/* =========================================================================
+   THE HERO TERMINAL
+   One row in the terminal table drives everything the terminal prints — the
+   host and folder for the title bar and prompts, and `lines`, one
+   `kind::content` line per row of output:
+     c::whoami            a command — prompt, folder and command colours
+     out::Hello there     plain output; {name} and {title} become the profile
+     type::A, B, C        a rotating typing line (comma separated items)
+   ========================================================================= */
+
+/* The single terminal row — the host, folder and the lines it prints. */
+function terminal(): array
+{
+    static $term = null;
+
+    if ($term === null) {
+        $term = one('SELECT * FROM terminal ORDER BY id LIMIT 1') ?? [];
+    }
+
+    return $term;
+}
+
+/* Replace {placeholders} of a terminal line with live profile values. */
+function fill(string $line): string
+{
+    $me = me();
+
+    return str_replace(
+        ['{name}', '{title}'],
+        [$me['name'] ?? OWNER, $me['title'] ?? ''],
+        $line
+    );
+}
+
+/* =========================================================================
+   THE HERO TERMINAL — RENDER
+   ========================================================================= */
+
+function termHtml(): string
+{
+    $term = terminal();
+    $host = e($term['host'] ?? 'hiswill@localhost');
+    $path = e($term['path'] ?? '~');
+    $out  = '';
+
+    foreach (preg_split('/\R/', trim($term['lines'] ?? '')) ?: [] as $line) {
+        [$kind, $body] = array_pad(explode('::', $line, 2), 2, '');
+
+        if ($kind === 'c') {
+            [$command, $rest] = array_pad(explode(' ', $body, 2), 2, '');
+            $out .= '<div' . ($out === '' ? '' : ' class="mt-3"') . '><span class="prompt">' . $host . '</span>:'
+                . '<span class="path">' . $path . '</span>$ '
+                . '<span class="arg">' . e($command) . '</span>'
+                . ($rest === '' ? '' : ' ' . e($rest)) . '</div>';
+        } elseif ($kind === 'out') {
+            $out .= '<div class="out">' . e(fill($body)) . '</div>';
+        } elseif ($kind === 'type') {
+            $items = array_map('trim', explode(',', $body));
+            $out .= '<div class="out">&gt; <span data-typing=\''
+                . e(json_encode($items, JSON_UNESCAPED_UNICODE | JSON_HEX_APOS))
+                . '\'></span><span class="caret"></span></div>';
+        }
+    }
+
+    return $out;
+}

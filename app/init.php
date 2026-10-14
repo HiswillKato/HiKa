@@ -20,6 +20,27 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+/* Maintenance mode: visitors get a short notice, while the admin panel and a
+   signed-in owner are let through, so the site can be worked on and previewed.
+   Assets are static files and never pass through here, so they keep loading. */
+if (flag('maintenance') && owner() === null
+    && !str_starts_with($_SERVER['SCRIPT_NAME'] ?? '', '/admin/')) {
+    http_response_code(503);
+    $title   = 'Maintenance';
+    $section = '';
+
+    require __DIR__ . '/parts/header.php';
+    ?>
+    <section class="container py-5 text-center" style="max-width: 44rem;">
+        <span class="work-icon mb-3 d-inline-flex"><?= icon('fa-solid fa-gear') ?></span>
+        <h1 class="display-4 mb-3">Down for maintenance</h1>
+        <p class="lead mb-0">The site is getting a quick tune-up. It will be back shortly — nothing is broken, just being polished.</p>
+    </section>
+    <?php
+    require __DIR__ . '/parts/footer.php';
+    exit;
+}
+
 set_exception_handler(static function (Throwable $problem): void {
     error_log($problem->getMessage() . ' in ' . $problem->getFile() . ':' . $problem->getLine());
 
