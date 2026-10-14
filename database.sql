@@ -180,7 +180,7 @@ VALUES (
 I started writing code in 2020, curious about how a website actually works. That curiosity never stopped: it widened into a love for everything around the code — Linux, the command line, servers, the cloud, and the small details that make a system feel simple.
 
 ## How I like to build
-I reach for the smallest tool that does the job, and I keep code clean, unduplicated and easy to read. For web software that means plain PHP and MySQL; for the repetitive work, Bash; for the interface, Bootstrap 5. The next person — often future me — should be able to read it and know exactly what it does.
+I reach for the smallest tool that does the job, and I keep code clean, unduplicated and easy to read. For web software that means plain PHP and MySQL; for the repetitive work, Bash; for the interface, Bootstrap 5; and Git to version every step. The next person — often future me — should be able to read it and know exactly what it does.
 
 ## Where I am heading
 I am learning the cloud hands-on and going deep into AWS. I keep exploring Linux too — different distributions, how they are put together, and how to set them up from scratch. Locally I run Ubuntu 26.04 in WSL; in the cloud, Ubuntu 24.04 LTS. I like breaking my own setup just so I can put it back together and understand it a little better.
@@ -202,7 +202,7 @@ INSERT INTO terminal (host, path, `lines`) VALUES (
   'c::whoami
 out::{name} — {title}
 c::cat interests.txt
-type::Linux, Windows, Cloud & AWS, Bash Scripting, Web Development, Artificial Intelligence, Systems Security
+type::Linux, Windows, Cloud & AWS, Bash Scripting, Git & GitHub, Web Development, Artificial Intelligence, Systems Security
 c::ls projects/
 out::BUBAPC  Gospelzora  SiFM'
 );
@@ -267,7 +267,7 @@ INSERT INTO projects (title, slug, summary, body, tech, category, repo, live, ic
 
 ## How it is built
 Plain PHP with MySQLi prepared statements, Bootstrap 5 for the interface and Font Awesome for icons. Apache does the routing through .htaccess, so every page has a short address and the working parts stay off the web.',
-  'PHP, MySQLi, MariaDB, Bootstrap 5, Apache',
+  'PHP, MySQLi, MariaDB, Bootstrap 5, Apache, Git',
   'web',
   'https://github.com/HiswillKato/BUBAPC',
   '',
@@ -290,7 +290,7 @@ Plain PHP with MySQLi prepared statements, Bootstrap 5 for the interface and Fon
 
 ## Why it exists
 Gospel music brings people together and offers hope. I wanted to build something that reflects that experience while giving me room to grow as a developer.',
-  'PHP, MySQLi, Bootstrap 5, JavaScript',
+  'PHP, MySQLi, Bootstrap 5, JavaScript, Git',
   'web',
   'https://github.com/HiswillKato/Gospelzora',
   '',
@@ -315,7 +315,7 @@ Gospel music brings people together and offers hope. I wanted to build something
 
 ## License
 SiFM is released under the MIT License, so you are free to use, change and share it. Contributions and ideas are welcome — reach out any time.',
-  'PHP, HTML, CSS, JavaScript',
+  'PHP, HTML, CSS, JavaScript, Git',
   'tool',
   'https://github.com/HiswillKato/SiFM',
   '',
@@ -327,6 +327,6 @@ SiFM is released under the MIT License, so you are free to use, change and share
 
 INSERT INTO timeline (title, place, period, detail, type, sort) VALUES
 ('BSc. Computer Engineering', 'Busitema University', 'Present', 'Studying computer engineering and building software alongside the course.', 'education', 1),
-('Freelance Web Developer', 'Freelance & personal projects', '2024 – Present', 'Building and maintaining PHP and MySQL websites, scripting the repetitive parts in Bash, and shipping them to Linux servers.', 'work', 2),
+('Freelance Web Developer', 'Freelance & personal projects', '2024 – Present', 'Building and maintaining PHP and MySQL websites, scripting the repetitive parts in Bash, versioning everything in Git, and shipping them to Linux servers.', 'work', 2),
 ('Learning the cloud', 'AWS & self-study', '2025 – Present', 'Going deep into AWS services, Linux servers and the command line — one hands-on project at a time.', 'milestone', 3),
 ('Wrote my first lines of code', 'Self-taught', '2020', 'Started with HTML and PHP, curious about how a website actually works. Never really stopped.', 'milestone', 4);
