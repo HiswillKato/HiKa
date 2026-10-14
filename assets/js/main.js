@@ -188,5 +188,34 @@
             slugSource.addEventListener('input', showSlug);
             showSlug();
         }
+
+        /* ------------------------------------------------------------------
+           8. ASK BEFORE SOMETHING DESTRUCTIVE
+           Any element carrying data-confirm puts its message to the visitor
+           first. The delete buttons all sit inside a form, so the question is
+           asked on submit — which also covers the form being sent from the
+           keyboard. A plain link is caught on click instead. Cancelling stops
+           the submission, so nothing is destroyed by accident.
+           ------------------------------------------------------------------ */
+        document.addEventListener('click', function (event) {
+            var link = event.target.closest('[data-confirm]');
+
+            if (!link || link.closest('form')) {
+                return;
+            }
+
+            if (!window.confirm(link.getAttribute('data-confirm'))) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+
+        document.addEventListener('submit', function (event) {
+            var button = event.target.querySelector('[data-confirm]');
+
+            if (button && !window.confirm(button.getAttribute('data-confirm'))) {
+                event.preventDefault();
+            }
+        });
     });
 })();

@@ -52,7 +52,15 @@ RewriteRule ^admin/([a-z][a-z0-9-]*)/?$ admin/$1.php [L,QSA]
 RewriteRule ^projects/([A-Za-z0-9-]+)/?$ project.php?slug=$1 [L,QSA]
 
 # --------------------------------------------------------------------------
-# 4. SHORT ADDRESSES FOR THE FLAT PAGES
+# 4. THE SITEMAP
+# --------------------------------------------------------------------------
+# /sitemap.xml is generated from the rows the pages already read, so it can
+# never list a project that has since been unpublished. It has to sit above
+# the flat-page rule below, which does not match a name containing a dot.
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+# --------------------------------------------------------------------------
+# 5. SHORT ADDRESSES FOR THE FLAT PAGES
 # --------------------------------------------------------------------------
 # /about -> about.php, but only when nothing real lives at that name — so
 # assets/css/style.css and the folders beneath it are left alone. $1 is tested
@@ -63,6 +71,23 @@ RewriteCond %{DOCUMENT_ROOT}/$1.php -f
 RewriteRule ^([a-z][a-z0-9-]*)/?$ $1.php [L]
 
 # --------------------------------------------------------------------------
-# 5. POLITE ERRORS
+# 6. POLITE ERRORS
 # --------------------------------------------------------------------------
 ErrorDocument 404 /404.php
+
+# --------------------------------------------------------------------------
+# 7. RESPONSE HEADERS
+# --------------------------------------------------------------------------
+# Four headers that cost nothing and close the usual browser-side holes: stop
+# MIME sniffing, keep the full address out of other sites' logs, refuse to be
+# framed, and switch off the browser features this site never asks for.
+#
+# A Content-Security-Policy is deliberately absent. The theme is chosen by a
+# small inline script before the first paint, so a policy strict enough to be
+# worth having would have to allow 'unsafe-inline' — which buys almost nothing.
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+</IfModule>

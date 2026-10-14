@@ -24,12 +24,37 @@ if ($work === null) {
     exit;
 }
 
-$title   = $work['title'];
-$section = 'projects';
-$tech    = array_filter(array_map('trim', explode(',', $work['tech'])));
+$title       = $work['title'];
+$section     = 'projects';
+$description = $work['summary'];
+$tech        = array_filter(array_map('trim', explode(',', $work['tech'])));
 
 $others = array_values(array_filter(projects(), static fn (array $row): bool => $row['id'] !== $work['id']));
 $others = array_slice($others, 0, 3);
+
+/* What a search engine is told this page is: the work itself, and the trail
+   back to the list it came from. The header prints it beside the person. */
+$schema = [
+    '@context' => 'https://schema.org',
+    '@graph'   => [
+        array_filter([
+            '@type'          => 'CreativeWork',
+            'name'           => $work['title'],
+            'description'    => $work['summary'],
+            'url'            => url('projects/' . $work['slug']),
+            'codeRepository' => $work['repo'] !== '' ? $work['repo'] : null,
+            'keywords'       => $work['tech'],
+            'author'         => ['@type' => 'Person', 'name' => OWNER, 'url' => url()],
+        ]),
+        [
+            '@type'           => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Projects', 'item' => url('projects')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => $work['title'], 'item' => url('projects/' . $work['slug'])],
+            ],
+        ],
+    ],
+];
 
 require __DIR__ . '/app/parts/header.php';
 ?>

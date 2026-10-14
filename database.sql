@@ -172,8 +172,8 @@ INSERT INTO profile
 VALUES (
   'Hiswill Kato',
   'HiKa',
-  'Tech Enthusiast',
-  'A tech enthusiast who writes clean, simple code — building web software, scripting on Linux, and learning the cloud one service at a time.',
+  'Computer Engineering Student',
+  'I write clean, simple code — building web software in PHP, scripting on Linux, and learning cybersecurity and the cloud one project at a time.',
   'I am Hiswill Kato — HiKa to my friends — a tech enthusiast and a Computer Engineering student at Busitema University in Uganda. I started writing code in 2020 and have been tinkering ever since, from web software to Linux servers and the cloud.',
   'I am Hiswill Kato — HiKa to my friends — a tech enthusiast and a Bachelor of Science in Computer Engineering student at Busitema University in Uganda.
 
@@ -202,9 +202,9 @@ INSERT INTO terminal (host, path, `lines`) VALUES (
   'c::whoami
 out::{name} — {title}
 c::cat interests.txt
-type::Linux, Windows, Cloud & AWS, Bash Scripting, Git & GitHub, Web Development, Artificial Intelligence, Systems Security
+type::Linux, Windows, Networking, Cloud & AWS, Bash Scripting, Git & GitHub, Web Development, Artificial Intelligence, Cybersecurity
 c::ls projects/
-out::BUBAPC  Gospelzora  SiFM'
+out::BUBAPC  Gospelzora  SiFM  HiKa'
 );
 
 -- The first account. Password is `Hiswill256@` — change it after signing in.
@@ -242,10 +242,11 @@ INSERT INTO skills (name, category, level, icon, note, sort) VALUES
 ('Cloud Computing',    'interest', 0, 'fa-solid fa-cloud',           'AWS, learning hands-on', 2),
 ('Bash & Automation',  'interest', 0, 'fa-solid fa-terminal',        'Scripting the boring parts', 3),
 ('Artificial Intelligence','interest', 0, 'fa-solid fa-brain',       'Learning & exploring', 4),
-('Systems Security',   'interest', 0, 'fa-solid fa-shield-halved',   'Cybersecurity', 5),
+('Cybersecurity',      'interest', 0, 'fa-solid fa-shield-halved',   'Linux, network & web security', 5),
 ('Web Development',    'interest', 0, 'fa-solid fa-globe',           '', 6),
 ('Open Source',        'interest', 0, 'fa-brands fa-osi',            'Sharing what I build', 7),
 ('Windows',            'interest', 0, 'fa-brands fa-windows',        '', 8),
+('Computer Networking','interest', 0, 'fa-solid fa-network-wired',   'DNS, HTTP & SSL/TLS', 9),
 -- Hands-on
 ('OS Installation',        'practice', 0, 'fa-solid fa-compact-disc', '', 1),
 ('Software Installation',  'practice', 0, 'fa-solid fa-download',     '', 2),
@@ -323,6 +324,36 @@ SiFM is released under the MIT License, so you are free to use, change and share
   1,
   'published',
   3
+),
+(
+  'HiKa',
+  'hika',
+  'My personal website — a portfolio and a small CMS in one, where I write down what I am learning and show the work that comes out of it.',
+  'HiKa is my personal website: a portfolio and a small content management system in one. It is where I write down what I am learning and show the work that comes out of it.
+
+## What it does
+- A public side with home, about, skills, projects and contact pages.
+- Every word of the site comes from the database, so I edit content instead of templates.
+- A private admin panel for the profile, skills, projects, socials, the hero terminal, the timeline and the inbox.
+
+## How it is built
+- Plain PHP 8 with no framework, no Composer and no build step.
+- MySQLi prepared statements for every query, and output escaped where it is printed.
+- Bootstrap 5 and Font Awesome vendored in the repo instead of pulled from a CDN.
+- Apache rewrites, so /about is about.php and /projects/hika is project.php?slug=hika.
+
+## What I learned
+- Keeping markup, styles and behaviour out of each other''s way.
+- Escaping output, checking CSRF tokens and guarding the admin panel.
+- Deploying to AWS EC2 behind Apache over HTTPS, with a database that only listens locally.',
+  'PHP, MySQL, Bootstrap, JavaScript',
+  'web',
+  'https://github.com/HiswillKato/HiKa',
+  'https://hika.int.yt',
+  'fa-solid fa-terminal',
+  0,
+  'published',
+  4
 );
 
 INSERT INTO timeline (title, place, period, detail, type, sort) VALUES

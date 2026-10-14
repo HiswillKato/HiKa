@@ -51,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$title   = 'Contact';
-$section = 'contact';
+$title       = 'Contact';
+$section     = 'contact';
+$description = 'Have a project, a question or an idea worth talking about? Send me a message — I read every one and reply as soon as I can.';
 
 require __DIR__ . '/app/parts/header.php';
 ?>

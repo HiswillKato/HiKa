@@ -1,0 +1,12 @@
+# HiKa — https://hika.int.yt
+#
+# Everything is meant to be found, except the machinery: the admin panel and
+# the shared app/ files, which the pages require but nobody should open.
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /app/
+
+# Regenerated from the same rows the pages read.
+Sitemap: https://hika.int.yt/sitemap.xml

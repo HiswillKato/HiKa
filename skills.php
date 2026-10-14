@@ -2,9 +2,10 @@
 declare(strict_types=1);
 require __DIR__ . '/app/init.php';
 
-$title   = 'Skills';
-$section = 'skills';
-$all     = skills();
+$title       = 'Skills';
+$section     = 'skills';
+$all         = skills();
+$description = 'The languages, tools and interests I work with — PHP, MySQL, Linux, Bash, Bootstrap and AWS — and the things I am still learning.';
 
 require __DIR__ . '/app/parts/header.php';
 ?>

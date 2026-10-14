@@ -2,9 +2,10 @@
 declare(strict_types=1);
 require __DIR__ . '/app/init.php';
 
-$title   = 'Projects';
-$section = 'projects';
-$items   = projects();
+$title       = 'Projects';
+$section     = 'projects';
+$items       = projects();
+$description = 'Web software I have designed, built and shipped — a church fellowship site, a gospel music platform, an open-source file manager and more.';
 
 require __DIR__ . '/app/parts/header.php';
 ?>

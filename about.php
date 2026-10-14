@@ -2,9 +2,10 @@
 declare(strict_types=1);
 require __DIR__ . '/app/init.php';
 
-$title   = 'About';
-$section = 'about';
-$me      = me();
+$title       = 'About';
+$section     = 'about';
+$me          = me();
+$description = 'The person behind the keyboard: how I came to code, what I build with, and where I am heading as a Computer Engineering student.';
 
 require __DIR__ . '/app/parts/header.php';
 ?>
