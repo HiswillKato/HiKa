@@ -171,11 +171,11 @@ INSERT INTO profile
   (name, alias, title, tagline, bio, about, location, campus, degree, email, phone, available)
 VALUES (
   'Hiswill Kato',
-  'Hika',
+  'HiKa',
   'Tech Enthusiast',
   'A tech enthusiast who writes clean, simple code — building web software, scripting on Linux, and learning the cloud one service at a time.',
-  'I am Hiswill Kato — Hika to my friends — a tech enthusiast and a Computer Engineering student at Busitema University in Uganda. I started writing code in 2020 and have been tinkering ever since, from web software to Linux servers and the cloud.',
-  'I am Hiswill Kato — Hika to my friends — a tech enthusiast and a Bachelor of Science in Computer Engineering student at Busitema University in Uganda.
+  'I am Hiswill Kato — HiKa to my friends — a tech enthusiast and a Computer Engineering student at Busitema University in Uganda. I started writing code in 2020 and have been tinkering ever since, from web software to Linux servers and the cloud.',
+  'I am Hiswill Kato — HiKa to my friends — a tech enthusiast and a Bachelor of Science in Computer Engineering student at Busitema University in Uganda.
 
 I started writing code in 2020, curious about how a website actually works. That curiosity never stopped: it widened into a love for everything around the code — Linux, the command line, servers, the cloud, and the small details that make a system feel simple.
 
