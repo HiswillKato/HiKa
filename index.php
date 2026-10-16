@@ -14,7 +14,7 @@ require __DIR__ . '/app/parts/header.php';
 <section class="container py-5">
     <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-6">
-            <span class="eyebrow">Hello, I'm</span>
+            <span class="eyebrow">Welcome to</span>
             <h1 class="hero-name display-2 mt-3 mb-2"><?= e($me['name'] ?? OWNER) ?></h1>
             <p class="fs-4 fw-semibold mb-3">
                 <span class="aurora"><?= e($me['title'] ?? '') ?></span>
@@ -25,16 +25,16 @@ require __DIR__ . '/app/parts/header.php';
                 <p class="d-inline-flex align-items-center gap-2 mb-4 px-3 py-1 rounded-pill border"
                    style="background: var(--surface);">
                     <span class="d-inline-block rounded-circle bg-primary" style="width:.55rem;height:.55rem"></span>
-                    <span class="small fw-semibold">Available for work &amp; collaboration</span>
+                    <span class="small fw-semibold">Open for work &amp; collaboration — my inbox is always open</span>
                 </p>
             <?php endif; ?>
 
             <div class="d-flex flex-wrap gap-2 mb-4">
                 <a class="btn btn-primary btn-lg" href="<?= url('projects') ?>">
-                    <?= icon('fa-solid fa-diagram-project') ?> View my work
+                    <?= icon('fa-solid fa-diagram-project') ?> Come see my work
                 </a>
                 <a class="btn btn-ghost btn-lg" href="<?= url('contact') ?>">
-                    <?= icon('fa-regular fa-comment-dots') ?> Get in touch
+                    <?= icon('fa-regular fa-comment-dots') ?> Say hello
                 </a>
             </div>
 
@@ -65,7 +65,7 @@ require __DIR__ . '/app/parts/header.php';
                 <span class="work-icon"><?= icon('fa-solid fa-code') ?></span>
                 <div class="min-width-0 text-break">
                     <div class="h4 mb-0"><?= date('Y') - 2020 ?>+</div>
-                    <div class="small text-body-secondary">Years coding</div>
+                    <div class="small text-body-secondary">Years writing code</div>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@ require __DIR__ . '/app/parts/header.php';
                 <span class="work-icon"><?= icon('fa-brands fa-github') ?></span>
                 <div class="min-width-0 text-break">
                     <div class="h4 mb-0"><?= total("SELECT COUNT(*) FROM projects WHERE status = 'published'") ?></div>
-                    <div class="small text-body-secondary">Public projects</div>
+                    <div class="small text-body-secondary">Projects you can browse</div>
                 </div>
             </div>
         </div>
@@ -104,10 +104,10 @@ require __DIR__ . '/app/parts/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4 reveal">
         <div>
             <span class="eyebrow">Selected work</span>
-            <h2 class="display-6 mb-0 mt-2">Things I've built</h2>
+            <h2 class="display-6 mb-0 mt-2">Things I've loved building</h2>
         </div>
         <a class="btn btn-ghost" href="<?= url('projects') ?>">
-            All projects <?= icon('fa-solid fa-arrow-right') ?>
+            See them all <?= icon('fa-solid fa-arrow-right') ?>
         </a>
     </div>
 
@@ -125,7 +125,7 @@ require __DIR__ . '/app/parts/header.php';
                             <?php endforeach; ?>
                         </div>
                         <a class="stretched-link fw-semibold" href="<?= url('projects/' . $item['slug']) ?>">
-                            Read more <?= icon('fa-solid fa-arrow-right ms-1') ?>
+                            Have a look <?= icon('fa-solid fa-arrow-right ms-1') ?>
                         </a>
                     </div>
                 </article>
@@ -143,10 +143,10 @@ require __DIR__ . '/app/parts/header.php';
             <p class="text-body-secondary">
                 I reach for the smallest tool that does the job — plain PHP and MySQL
                 for web software, Bash for the repetitive parts, and Linux to run it
-                all. Here are the languages I use most.
+                all. These are the ones I reach for every day.
             </p>
             <a class="btn btn-ghost" href="<?= url('skills') ?>">
-                <?= icon('fa-solid fa-layer-group') ?> See all skills
+                <?= icon('fa-solid fa-layer-group') ?> Come see the rest
             </a>
         </div>
         <div class="col-lg-7 reveal">
@@ -179,14 +179,14 @@ require __DIR__ . '/app/parts/header.php';
 <section class="container pb-5">
     <div class="tile p-4 p-lg-5 text-center reveal"
          style="background-image: linear-gradient(120deg, rgba(var(--bs-primary-rgb),.12), rgba(var(--sky-rgb),.10));">
-        <h2 class="display-6 mb-2">Let's build something — or just talk shop.</h2>
-        <p class="lead mb-4">I'm open to freelance work, collaboration, and a good conversation about code, the cloud or Linux.</p>
+        <h2 class="display-6 mb-2">Let's build something together — or just chat.</h2>
+        <p class="lead mb-4">Got a project in mind, want to team up, or simply feel like talking code, the cloud or Linux? I'm all ears.</p>
         <div class="d-flex flex-wrap justify-content-center gap-2">
             <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>">
                 <?= icon('fa-solid fa-paper-plane') ?> Start a conversation
             </a>
             <a class="btn btn-ghost btn-lg" href="<?= url('about') ?>">
-                More about me
+                Get to know me
             </a>
         </div>
     </div>
