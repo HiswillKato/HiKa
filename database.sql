@@ -301,6 +301,35 @@ Gospel music brings people together and offers hope. I wanted to build something
   2
 ),
 (
+  'HiWS — Hiswill Web Stack',
+  'hiws',
+  'The umbrella site for the free web projects and tools I build — a plain PHP 8 rebuild that gives the Bible reader, the tools and everything next one fast front door.',
+  'HiWS — Hiswill Web Stack — is the umbrella site for the free web projects and tools I build and give away. It started in 2022 as a folder of small utilities and grew into one front door for all of them.
+
+## What it does
+- Shows the projects and tools in one catalogue, with a page for each.
+- Hosts the Bible reader and the collection of small browser tools.
+- Explains who is behind the site, how to get in touch, and carries the disclaimer, privacy and terms pages a public service needs.
+
+## How it is built
+- Plain procedural PHP 8.3+ with MySQLi prepared statements — no framework, no Composer, no build step.
+- Bootstrap 5.3.3 and Font Awesome 6.5.2 vendored in the repo, re-skinned through CSS variables instead of new components.
+- nginx and php-fpm serving the tree directly, with MariaDB holding the content.
+- Every page starts from one init file that loads the config, the connection, the helpers and the queries, so the page itself is only markup.
+
+## What I learned
+- Writing a small, honest architecture: one settings file, one connection, one place for every query.
+- Getting out of the router''s way — short addresses, no framework, no magic.',
+  'PHP, MySQLi, Bootstrap 5, nginx, Git',
+  'web',
+  'https://github.com/HiswillKato/HiWS',
+  'https://hiws.eu.org',
+  'fa-solid fa-layer-group',
+  0,
+  'published',
+  3
+),
+(
   'SiFM — Simple File Manager',
   'sifm',
   'An open-source, single-file web file manager written in PHP. Browse, edit, upload, zip and manage files right from the browser. MIT licensed.',
@@ -308,11 +337,12 @@ Gospel music brings people together and offers hope. I wanted to build something
 
 ## What it does
 - View, create, edit, upload, download and delete files and folders.
-- Copy, move and rename, with ZIP download and extraction.
-- Change file permissions (chmod) for multi-user setups.
-- Create ZIP backups and restore them.
-- Search by keyword or wildcard, and check PHP syntax from the interface.
-- Detailed file information: size, MIME type, modification date and ownership.
+- Delete safely — anything removed is parked in a trash you can restore from.
+- Copy, move, duplicate and rename, one item at a time or in bulk with a pattern.
+- Edit text files in a code editor with syntax highlighting, and preview images, PDFs, audio, video and markdown in the page.
+- Change permissions (chmod), make ZIP backups, extract archives.
+- Search by name or inside the file contents, and check PHP syntax from the interface.
+- Rotate, resize and convert images, and see the size, MIME type, dates and ownership of every file.
 
 ## License
 SiFM is released under the MIT License, so you are free to use, change and share it. Contributions and ideas are welcome — reach out any time.',
@@ -323,7 +353,7 @@ SiFM is released under the MIT License, so you are free to use, change and share
   'fa-solid fa-folder-tree',
   1,
   'published',
-  3
+  4
 ),
 (
   'HiKa',
@@ -353,7 +383,7 @@ SiFM is released under the MIT License, so you are free to use, change and share
   'fa-solid fa-terminal',
   0,
   'published',
-  4
+  5
 );
 
 INSERT INTO timeline (title, place, period, detail, type, sort) VALUES
