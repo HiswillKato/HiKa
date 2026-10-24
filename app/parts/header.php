@@ -8,13 +8,20 @@ $active = $section ?? '';
 /* What search engines and link previews are told. A page may set its own
    `$description`; otherwise the profile tagline stands in for all of them. */
 $full  = $label === OWNER ? OWNER . ' — ' . ($me['title'] ?? '') : $label . ' · ' . OWNER;
+if (isset($pageTitle) && $pageTitle !== '') {
+    $full = $pageTitle;
+}
 $about = $me['tagline'] ?? ('The personal website of ' . OWNER);
 $desc  = $description ?? $about;
 
 /* The one canonical address for this page, with any query string dropped, so
    the same content is never indexed under two spellings. */
 $here = strtok((string) ($_SERVER['REQUEST_URI'] ?? '/'), '?') ?: '/';
-$link = url(trim(preg_replace('#\.php$#', '', $here), '/'));
+if (isset($canonical) && $canonical !== '') {
+    $link = $canonical;
+} else {
+    $link = url(trim(preg_replace('#\.php$#', '', $here), '/'));
+}
 $shot = asset('images/og.png');
 
 $nav = [

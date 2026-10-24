@@ -2,10 +2,14 @@
 declare(strict_types=1);
 require __DIR__ . '/app/init.php';
 
-$title   = OWNER;
-$section = 'home';
-$me      = me();
-$term    = terminal();
+$title       = OWNER;
+$section     = 'home';
+$pageTitle   = OWNER . ' — Computer Engineering Student & Web Developer';
+$description = 'Hiswill Kato is a Computer Engineering student at Busitema University and web developer, building practical web applications with PHP, MySQL, and Linux.';
+$canonical   = 'https://hiswill.eu.org/';
+
+$me   = me();
+$term = terminal();
 
 require __DIR__ . '/app/parts/header.php';
 ?>
@@ -14,27 +18,22 @@ require __DIR__ . '/app/parts/header.php';
 <section class="container py-5">
     <div class="row align-items-center g-4 g-lg-5">
         <div class="col-lg-6">
-            <span class="eyebrow">Welcome to</span>
-            <h1 class="hero-name display-2 mt-3 mb-2"><?= e($me['name'] ?? OWNER) ?></h1>
+            <span class="eyebrow">Welcome</span>
+            <h1 class="hero-name display-2 mt-3 mb-2">Hi, I'm <?= e($me['name'] ?? OWNER) ?>.</h1>
             <p class="fs-4 fw-semibold mb-3">
-                <span class="aurora"><?= e($me['title'] ?? '') ?></span>
+                <span class="aurora">Computer Engineering Student &amp; Web Developer</span>
             </p>
-            <p class="lead mb-4" style="max-width: 34rem"><?= e($me['tagline'] ?? '') ?></p>
-
-            <?php if (!empty($me['available'])): ?>
-                <p class="d-inline-flex align-items-center gap-2 mb-4 px-3 py-1 rounded-pill border"
-                   style="background: var(--surface);">
-                    <span class="d-inline-block rounded-circle bg-primary" style="width:.55rem;height:.55rem"></span>
-                    <span class="small fw-semibold">Open for work &amp; collaboration — my inbox is always open</span>
-                </p>
-            <?php endif; ?>
+            <p class="lead mb-4" style="max-width: 34rem">
+                I'm passionate about building useful web applications, exploring Linux systems,
+                and using technology to solve everyday problems.
+            </p>
 
             <div class="d-flex flex-wrap gap-2 mb-4">
                 <a class="btn btn-primary btn-lg" href="<?= url('projects') ?>">
-                    <?= icon('fa-solid fa-diagram-project') ?> Come see my work
+                    <?= icon('fa-solid fa-diagram-project') ?> Explore My Projects
                 </a>
                 <a class="btn btn-ghost btn-lg" href="<?= url('contact') ?>">
-                    <?= icon('fa-regular fa-comment-dots') ?> Say hello
+                    <?= icon('fa-regular fa-comment-dots') ?> Get in Touch
                 </a>
             </div>
 
@@ -57,138 +56,169 @@ require __DIR__ . '/app/parts/header.php';
     </div>
 </section>
 
-<!-- =====================  QUICK FACTS  ===================== -->
-<section class="container pb-4">
-    <div class="row g-3 reveal">
-        <div class="col-6 col-lg-3">
-            <div class="tile h-100 p-3 d-flex align-items-center gap-3">
-                <span class="work-icon"><?= icon('fa-solid fa-code') ?></span>
-                <div class="min-width-0 text-break">
-                    <div class="h4 mb-0"><?= date('Y') - 2020 ?>+</div>
-                    <div class="small text-body-secondary">Years writing code</div>
-                </div>
-            </div>
+<!-- =====================  ABOUT  ===================== -->
+<section class="container py-5">
+    <div class="row g-4 g-lg-5 align-items-center">
+        <div class="col-lg-5 reveal">
+            <span class="eyebrow">About me</span>
+            <h2 class="display-6 mt-2 mb-3">A Little About Me</h2>
         </div>
-        <div class="col-6 col-lg-3">
-            <div class="tile h-100 p-3 d-flex align-items-center gap-3">
-                <span class="work-icon"><?= icon('fa-brands fa-aws') ?></span>
-                <div class="min-width-0 text-break">
-                    <div class="h4 mb-0">AWS</div>
-                    <div class="small text-body-secondary">Learning the cloud</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="tile h-100 p-3 d-flex align-items-center gap-3">
-                <span class="work-icon"><?= icon('fa-brands fa-github') ?></span>
-                <div class="min-width-0 text-break">
-                    <div class="h4 mb-0"><?= total("SELECT COUNT(*) FROM projects WHERE status = 'published'") ?></div>
-                    <div class="small text-body-secondary">Projects you can browse</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-lg-3">
-            <div class="tile h-100 p-3 d-flex align-items-center gap-3">
-                <span class="work-icon"><?= icon('fa-solid fa-graduation-cap') ?></span>
-                <div class="min-width-0 text-break">
-                    <div class="h4 mb-0">Busitema</div>
-                    <div class="small text-body-secondary">University</div>
-                </div>
-            </div>
+        <div class="col-lg-7 reveal">
+            <p class="lead mb-0" style="max-width: 42rem">
+                I'm a Computer Engineering student at Busitema University with a strong interest in
+                software development, Linux, and web technologies.
+            </p>
+            <p class="text-body-secondary mt-3 mb-0" style="max-width: 42rem">
+                I enjoy creating practical digital solutions, learning how systems work, and helping
+                people become more comfortable with technology. My journey involves continuous learning,
+                experimentation, and turning ideas into working projects.
+            </p>
         </div>
     </div>
 </section>
 
-<!-- =====================  FEATURED WORK  ===================== -->
+<!-- =====================  FEATURED PROJECTS  ===================== -->
 <section class="container py-5">
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4 reveal">
         <div>
             <span class="eyebrow">Selected work</span>
-            <h2 class="display-6 mb-0 mt-2">Things I've loved building</h2>
+            <h2 class="display-6 mb-0 mt-2">Featured Projects</h2>
         </div>
         <a class="btn btn-ghost" href="<?= url('projects') ?>">
-            See them all <?= icon('fa-solid fa-arrow-right') ?>
+            See all projects <?= icon('fa-solid fa-arrow-right') ?>
         </a>
     </div>
 
     <div class="row g-4">
-        <?php foreach (featured(3) as $item): ?>
-            <div class="col-md-6 col-lg-4 reveal">
-                <article class="card work">
-                    <div class="card-body p-4 d-flex flex-column">
-                        <span class="work-icon mb-3"><?= icon($item['icon']) ?></span>
-                        <h3 class="h5"><?= e($item['title']) ?></h3>
-                        <p class="text-body-secondary flex-grow-1"><?= e(cut($item['summary'], 130)) ?></p>
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            <?php foreach (array_slice(array_map('trim', explode(',', $item['tech'])), 0, 3) as $tech): ?>
-                                <span class="badge rounded-pill text-bg-secondary"><?= e($tech) ?></span>
-                            <?php endforeach; ?>
-                        </div>
-                        <a class="stretched-link fw-semibold" href="<?= url('projects/' . $item['slug']) ?>">
-                            Have a look <?= icon('fa-solid fa-arrow-right ms-1') ?>
+        <!-- Martazi -->
+        <div class="col-md-6 col-lg-4 reveal">
+            <article class="card work h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    <span class="work-icon mb-3"><?= icon('fa-solid fa-cart-shopping') ?></span>
+                    <h3 class="h5">Martazi</h3>
+                    <p class="text-body-secondary flex-grow-1">
+                        An e-commerce project focused on creating a practical and user-friendly online shopping experience.
+                    </p>
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        <span class="badge rounded-pill text-bg-secondary">PHP</span>
+                        <span class="badge rounded-pill text-bg-secondary">MySQL</span>
+                        <span class="badge rounded-pill text-bg-secondary">Composer</span>
+                    </div>
+                    <a class="btn btn-ghost btn-sm mt-auto" href="https://github.com/HiswillKato/Martazi" target="_blank" rel="noopener">
+                        <?= icon('fa-brands fa-github') ?> View on GitHub
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- SiFM -->
+        <div class="col-md-6 col-lg-4 reveal">
+            <article class="card work h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    <span class="work-icon mb-3"><?= icon('fa-solid fa-folder-tree') ?></span>
+                    <h3 class="h5">SiFM — Simple File Manager</h3>
+                    <p class="text-body-secondary flex-grow-1">
+                        A lightweight, single-file PHP web application for managing files through a browser.
+                    </p>
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        <span class="badge rounded-pill text-bg-secondary">PHP</span>
+                        <span class="badge rounded-pill text-bg-secondary">HTML</span>
+                        <span class="badge rounded-pill text-bg-secondary">CSS</span>
+                        <span class="badge rounded-pill text-bg-secondary">JavaScript</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                        <a class="btn btn-primary btn-sm" href="<?= url('projects/sifm') ?>">
+                            <?= icon('fa-solid fa-book-open') ?> Details
+                        </a>
+                        <a class="btn btn-ghost btn-sm" href="https://github.com/HiswillKato/SiFM" target="_blank" rel="noopener">
+                            <?= icon('fa-brands fa-github') ?> Code
                         </a>
                     </div>
-                </article>
-            </div>
-        <?php endforeach; ?>
+                </div>
+            </article>
+        </div>
+
+        <!-- Gospelzora -->
+        <div class="col-md-6 col-lg-4 reveal">
+            <article class="card work h-100">
+                <div class="card-body p-4 d-flex flex-column">
+                    <span class="work-icon mb-3"><?= icon('fa-solid fa-music') ?></span>
+                    <h3 class="h5">Gospelzora</h3>
+                    <p class="text-body-secondary flex-grow-1">
+                        A gospel music platform inspired by the vision of transforming lives through worship.
+                        Gospelzora is currently maintained on GitHub and is not publicly deployed.
+                    </p>
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        <span class="badge rounded-pill text-bg-secondary">PHP</span>
+                        <span class="badge rounded-pill text-bg-secondary">MySQL</span>
+                        <span class="badge rounded-pill text-bg-secondary">Bootstrap 5</span>
+                        <span class="badge rounded-pill text-bg-secondary">JavaScript</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
+                        <a class="btn btn-primary btn-sm" href="<?= url('projects/gospelzora') ?>">
+                            <?= icon('fa-solid fa-book-open') ?> Details
+                        </a>
+                        <a class="btn btn-ghost btn-sm" href="https://github.com/HiswillKato/Gospelzora" target="_blank" rel="noopener">
+                            <?= icon('fa-brands fa-github') ?> Code
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
     </div>
 </section>
 
-<!-- =====================  SKILLS SNAPSHOT  ===================== -->
+<!-- =====================  SKILLS  ===================== -->
 <section class="container py-5">
     <div class="row g-4 g-lg-5 align-items-center">
         <div class="col-lg-5 reveal">
             <span class="eyebrow">What I work with</span>
-            <h2 class="display-6 mt-2 mb-3">A small stack, used well.</h2>
+            <h2 class="display-6 mt-2 mb-3">What I Work With</h2>
             <p class="text-body-secondary">
-                I reach for the smallest tool that does the job — plain PHP and MySQL
-                for web software, Bash for the repetitive parts, and Linux to run it
-                all. These are the ones I reach for every day.
+                A focused set of tools I use to design, build, and run web applications and Linux-based systems.
             </p>
             <a class="btn btn-ghost" href="<?= url('skills') ?>">
-                <?= icon('fa-solid fa-layer-group') ?> Come see the rest
+                <?= icon('fa-solid fa-layer-group') ?> See all skills
             </a>
         </div>
         <div class="col-lg-7 reveal">
-            <?php if (flag('levels')): ?>
-                <div class="tile p-4 d-grid gap-4">
-                    <?php foreach (array_slice(pick(skills(), 'language'), 0, 5) as $skill): ?>
-                        <div>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-semibold">
-                                    <i class="<?= e($skill['icon']) ?> skill-icon me-1"></i><?= e($skill['name']) ?>
-                                </span>
-                                <span class="mono small text-body-secondary"><?= (int) $skill['level'] ?>%</span>
-                            </div>
-                            <div class="meter"><span style="width: <?= (int) $skill['level'] ?>%"></span></div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div class="tile p-4 d-flex flex-wrap gap-2">
-                    <?php foreach (array_slice(pick(skills(), 'language'), 0, 5) as $skill): ?>
-                        <span class="chip"><?= icon($skill['icon']) ?><?= e($skill['name']) ?></span>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+            <div class="tile p-4 d-flex flex-wrap gap-2">
+                <?php
+                $skillItems = [
+                    ['PHP', 'fa-brands fa-php'],
+                    ['MySQL', 'fa-solid fa-database'],
+                    ['HTML & CSS', 'fa-brands fa-html5'],
+                    ['JavaScript', 'fa-brands fa-js'],
+                    ['Bootstrap', 'fa-brands fa-bootstrap'],
+                    ['Linux', 'fa-brands fa-linux'],
+                    ['Nginx', 'fa-solid fa-server'],
+                    ['Git & GitHub', 'fa-brands fa-github'],
+                ];
+                foreach ($skillItems as [$name, $icon]): ?>
+                    <span class="chip"><?= icon($icon) ?><?= e($name) ?></span>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- =====================  CTA  ===================== -->
+<!-- =====================  CONTACT  ===================== -->
 <section class="container pb-5">
-    <div class="tile p-4 p-lg-5 text-center reveal"
-         style="background-image: linear-gradient(120deg, rgba(var(--bs-primary-rgb),.12), rgba(var(--sky-rgb),.10));">
-        <h2 class="display-6 mb-2">Let's build something together — or just chat.</h2>
-        <p class="lead mb-4">Got a project in mind, want to team up, or simply feel like talking code, the cloud or Linux? I'm all ears.</p>
-        <div class="d-flex flex-wrap justify-content-center gap-2">
+    <div class="tile p-4 p-lg-5 text-center reveal">
+        <span class="eyebrow">Let's connect</span>
+        <h2 class="display-6 mb-2 mt-2">Let's Connect</h2>
+        <p class="lead mb-4" style="max-width: 40rem; margin-left: auto; margin-right: auto;">
+            Interested in my work, have an idea to share, or just want to say hello? Feel free to reach out.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
             <a class="btn btn-primary btn-lg" href="<?= url('contact') ?>">
-                <?= icon('fa-solid fa-paper-plane') ?> Start a conversation
+                <?= icon('fa-solid fa-paper-plane') ?> Get in Touch
             </a>
-            <a class="btn btn-ghost btn-lg" href="<?= url('about') ?>">
-                Get to know me
+            <a class="btn btn-ghost btn-lg" href="https://github.com/HiswillKato" target="_blank" rel="noopener">
+                <?= icon('fa-brands fa-github') ?> GitHub
             </a>
         </div>
+        <?php require __DIR__ . '/app/parts/socials.php'; ?>
     </div>
 </section>
 
