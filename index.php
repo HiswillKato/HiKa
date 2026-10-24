@@ -56,24 +56,17 @@ require __DIR__ . '/app/parts/header.php';
     </div>
 </section>
 
-<!-- =====================  ABOUT  ===================== -->
+<!-- =====================  ABOUT CTA  ===================== -->
 <section class="container py-5">
-    <div class="row g-4 g-lg-5 align-items-center">
-        <div class="col-lg-5 reveal">
-            <span class="eyebrow">About me</span>
-            <h2 class="display-6 mt-2 mb-3">A Little About Me</h2>
-        </div>
-        <div class="col-lg-7 reveal">
-            <p class="lead mb-0" style="max-width: 42rem">
-                I'm a Computer Engineering student at Busitema University with a strong interest in
-                software development, Linux, and web technologies.
-            </p>
-            <p class="text-body-secondary mt-3 mb-0" style="max-width: 42rem">
-                I enjoy creating practical digital solutions, learning how systems work, and helping
-                people become more comfortable with technology. My journey involves continuous learning,
-                experimentation, and turning ideas into working projects.
-            </p>
-        </div>
+    <div class="tile p-4 p-lg-5 text-center reveal">
+        <span class="eyebrow">About me</span>
+        <h2 class="display-6 mb-2 mt-2">Get to know me</h2>
+        <p class="lead mb-4" style="max-width: 40rem; margin-left: auto; margin-right: auto;">
+            A little about my background, interests, and what I am working toward.
+        </p>
+        <a class="btn btn-primary btn-lg" href="<?= url('about') ?>">
+            <?= icon('fa-solid fa-user') ?> Read my story
+        </a>
     </div>
 </section>
 
