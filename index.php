@@ -58,7 +58,7 @@ require __DIR__ . '/app/parts/header.php';
 
 <!-- =====================  ABOUT CTA  ===================== -->
 <section class="container py-5">
-    <div class="tile p-4 p-lg-5 text-center reveal">
+    <div class="text-center reveal">
         <span class="eyebrow">About me</span>
         <h2 class="display-6 mb-2 mt-2">Get to know me</h2>
         <p class="lead mb-4" style="max-width: 40rem; margin-left: auto; margin-right: auto;">
@@ -197,7 +197,7 @@ require __DIR__ . '/app/parts/header.php';
 
 <!-- =====================  CONTACT  ===================== -->
 <section class="container pb-5">
-    <div class="tile p-4 p-lg-5 text-center reveal">
+    <div class="text-center reveal">
         <span class="eyebrow">Let's connect</span>
         <h2 class="display-6 mb-2 mt-2">Let's Connect</h2>
         <p class="lead mb-4" style="max-width: 40rem; margin-left: auto; margin-right: auto;">
