@@ -211,7 +211,6 @@ require __DIR__ . '/app/parts/header.php';
                 <?= icon('fa-brands fa-github') ?> GitHub
             </a>
         </div>
-        <?php require __DIR__ . '/app/parts/socials.php'; ?>
     </div>
 </section>
 
